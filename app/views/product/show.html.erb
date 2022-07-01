@@ -1,0 +1,39 @@
+<% if user_signed_in? %>
+  <h2><%= current_user.email %></h2>
+<% end %>
+<h2><%= @product.name%></h2>
+<%= form_with model: [@product,@product.carts.build] do |form| %>
+<p>
+  <%= form.label :name %><br>
+
+  <input type="text" value="<%= @product.name %>" name="product[name]" id="product_name" readonly>
+</p>
+
+<p>
+  <%= form.label :price_per_kg %><br>
+  <input type="number" value="<%= @product.price_per_kg %>" name="product[price_per_kg]" id="product_price_per_kg" readonly>
+</p>
+
+<p>
+<p>
+  <%= form.label :weight ,"Package Weight" %><br>
+  <%= form.select :weight, [100,250, 500,1] %>
+  <%= form.radio_button :weight_type, "G" %>
+  <%= form.label :weight_type_g, "G" %>
+  <%= form.radio_button :weight_type, "Kg" %>
+  <%= form.label :weight_type_kg, "Kg" %>
+
+</p>
+
+<p>
+  <%= form.label :quantity %><br>
+  <%= form.number_field :quantity  %>
+</p>
+<p>
+
+</p><%= form.hidden_field :user_id, value: current_user.id %>
+<p>
+  <%= form.submit "Add to Cart"%>
+</p>
+<% end %>
+<h6><%= link_to "home",root_path%></h6>
